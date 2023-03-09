@@ -15,24 +15,24 @@ Substrate(1,LattS(2),LattS(3)) = 0.001;
 LatticeSub = ones(1,length(SubsDim2)+2,length(SubsDim3)+2);
 SubsTimeCount = 0;
 
-% f2 = figure(2);
-% SubstrateH = heatmap(rot90(squeeze(Substrate),1),"Colormap",turbo);
-% [XLabels,YLabels] = deal(string(1:LattS(2)),string(1:LattS(3)));
-% XLabels(mod(1:LattS(2),5) ~= 0) = " ";
-% YLabels(mod(1:LattS(3),5) ~= 0) = " ";
-% set(SubstrateH,"XDisplayLabels",XLabels,"YDisplayLabels",YLabels)
-% grid off; caxis([1 100]);
+f2 = figure(2);
+SubstrateH = heatmap(rot90(squeeze(Substrate),1),"Colormap",turbo);
+[XLabels,YLabels] = deal(string(1:LattS(2)),string(1:LattS(3)));
+XLabels(mod(1:LattS(2),5) ~= 0) = " ";
+YLabels(mod(1:LattS(3),5) ~= 0) = " ";
+set(SubstrateH,"XDisplayLabels",XLabels,"YDisplayLabels",YLabels)
+grid off; caxis([1 100]);
 
 SubstrateEns = rot90(squeeze(Substrate));
 
 
-% figure(5)
-% SubstrateHPlot = plot(1:LattS(2),zeros(1,LattS(2)));
-% grid on;
-% 
-% figure(6)
-% SubstrateLPlot = plot(1:LattS(3),zeros(1,LattS(3)));
-% grid on;
+figure(3)
+SubstrateHPlot = plot(1:LattS(2),zeros(1,LattS(2)));
+grid on;
+
+figure(4)
+SubstrateLPlot = plot(1:LattS(3),zeros(1,LattS(3)));
+grid on;
 
 %% Injection & Ejection window
 
@@ -50,8 +50,8 @@ MaxGrowth = 100; MaxDepRate = 0.03;                                         %*
 
 DiffusionRateSubstrt = 0.05;
 
-Simulation = true; Speed = 1;                                            %*
-Time = 100000;                                                               %*
+Simulation = true; Speed = 100;                                            %*
+Time = 10000;                                                               %*
 
 [p, q] = deal( 1/4+(XBias/4) , 1/4-(XBias/4) );
 [r, s] = deal( 1/4+(YBias/4) , 1/4-(YBias/4) );
@@ -61,7 +61,7 @@ Time = 100000;                                                               %*
 
 % Run Simulation
 TotRuns = 10;
-figure(4);
+figure(1);
 
 tic
 for N = 1:TotRuns
@@ -178,28 +178,28 @@ for N = 1:TotRuns
 
         % Simulaton
 
-%         if Simulation && floor(FlowTimeCount/Speed) == FlowTimeCount/Speed
-%
-%             spy(rot90(squeeze(Latt),1)); grid on;
-%             title("Particle flow","(Time "+num2str(FlowTimeCount)+")");
-%             SubstrateData = rot90(squeeze(Substrate));
-%             set(SubstrateH,'ColorData',SubstrateData);
-%             SubstrateH.Title = ["Deposition","(Time "+num2str(SubsTimeCount)+")"];
-%
-%             Substrate2dH = sum(SubstrateData((LattS(3)/2)-1:LattS(3)/2+2,:),1)/4;
-%             [ ~ , Ind] = max(Substrate2dH);
-%             if Ind < 2
-%                 Ind = 3;
-%                 Substrate2dV = sum(SubstrateData(:,Ind-1:Ind+1),2)/3;
-%             else
-%                 Substrate2dV = sum(SubstrateData(:,Ind-1:Ind+1),2)/3;
-%             end
-%
-%             set(SubstrateHPlot,'YData',Substrate2dH);
-%             set(SubstrateLPlot,'YData',Substrate2dV);
-%
-%             drawnow;
-%         end
+        if Simulation && floor(FlowTimeCount/Speed) == FlowTimeCount/Speed
+
+            spy(rot90(squeeze(Latt),1)); grid on;
+            title("Particle flow","(Time "+num2str(FlowTimeCount)+")");
+            SubstrateData = rot90(squeeze(Substrate));
+            set(SubstrateH,'ColorData',SubstrateData);
+            SubstrateH.Title = ["Deposition","(Time "+num2str(SubsTimeCount)+")"];
+
+            Substrate2dH = sum(SubstrateData((LattS(3)/2)-1:LattS(3)/2+2,:),1)/4;
+            [ ~ , Ind] = max(Substrate2dH);
+            if Ind < 2
+                Ind = 3;
+                Substrate2dV = sum(SubstrateData(:,Ind-1:Ind+1),2)/3;
+            else
+                Substrate2dV = sum(SubstrateData(:,Ind-1:Ind+1),2)/3;
+            end
+
+            set(SubstrateHPlot,'YData',Substrate2dH);
+            set(SubstrateLPlot,'YData',Substrate2dV);
+
+            drawnow;
+        end
 
         if floor((t/Time)*100) == (t/Time)*100
             clc; fprintf('Simulating... (%d/%d) (%d%%)\n', N, TotRuns, (t/Time)*100);
