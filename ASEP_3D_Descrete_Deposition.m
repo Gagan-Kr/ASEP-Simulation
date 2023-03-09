@@ -56,7 +56,7 @@ grid on;
 Alfa = 0.03;
 Beta = 0.1;
 
-[ XBias , YBias , ZBias ]  = deal( 0.07 , 0 , 0 );
+[ XBias , YBias , ZBias ]  = deal( 0.1 , 0 , 0 );
 
 Deposition = true; RxnRate = 1;
 
@@ -95,6 +95,8 @@ for t = 1:Time
     % Deposition
 
     if Deposition && rand < RxnRate
+
+        % Condition for deposition needs review
         SubsTimeCount = SubsTimeCount + 1;
         JD = R(1,SubsDim2,SubsDim3)>=p+q & R(1,SubsDim2,SubsDim3)<p+q+r;
         Substrate(1,SubsDim2,SubsDim3) = Substrate(1,SubsDim2,SubsDim3) + JD;
