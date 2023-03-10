@@ -1,7 +1,7 @@
 %% Lattice Config
 
-%               Height      Length     Width
-LattSize = [       50    ,    100    ,   70    ];
+%         Height Length Width
+LattSize = [ 50 , 100 , 70 ];
 
 Latt = zeros(LattSize+2);
 Latt(1,:,:) = 1; Latt(end,:,:) = 1;
