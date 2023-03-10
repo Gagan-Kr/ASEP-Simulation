@@ -1,5 +1,5 @@
 %% Lattice Config
-LatticeSize =     [70 , 70];
+LatticeSize = [ 70 , 70 ]; % row column
 SubLatticeSize = 200;
 
 Lattice = zeros(LatticeSize);
