@@ -7,15 +7,15 @@ Time = 1000;
 
 %% Initiating variables
 
-Randomnes = 1; % Degree of randomnes in bulk
+Randomnes = 1;  % Degree of randomnes in bulk (min. value 1)
 N = 50000;      % numer of times same simulation is done (for ensembled sum)
+
 [p, q] = deal( 1/2+(XBias/2) , 1/2-(XBias/2) );
 ExactLattice = zeros(1,LattS);
 
 %% Simulation for Exact Solution
-clc
+
 tic
-%%
 for i = 1:N
 
     Latt = false(1,LattS);
@@ -70,6 +70,5 @@ xlim([0.5 LattS]); ylim([0 1]); grid on;
 xlabel("Position ($i$)",'Interpreter','latex',"FontSize",16);
 ylabel('$\rho_i$','Interpreter','latex',"FontSize",16)
 title('Maximum Current Plot','($\alpha = 0.8,\beta = 0.8$)','Interpreter','latex','FontSize',16)
-
 
 disp("Exact Soluton ploted")
